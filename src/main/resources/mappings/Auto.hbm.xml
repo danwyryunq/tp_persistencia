@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="tridentePersistente.tp_persistencia.RentAuto.sistema.Auto" table="autos" >
+		
+		<id column="A_ID" name="id" type="integer">
+      		<generator class="increment" />
+      	</id>
+      	
+		<property name="patente" type="string">
+			<column name="A_PATENTE" length="20" not-null="true" unique="true" />
+		</property>
+
+		<property name="marca" type="string">
+			<column name="A_MARCA" length="20" not-null="false" unique="false" />
+		</property>
+		<property name="modelo" type="string">
+			<column name="A_MODELO" length="20" not-null="false" unique="false" />
+		</property>
+
+		<property name="anho" type="integer">
+			<column name="A_ANHO" length="20" not-null="false" unique="false" />
+		</property>
+		<property name="costoBase" type="double">
+			<column name="A_COSTOBASE" length="20" not-null="false"
+				unique="false" />
+		</property>
+		<many-to-one name="categoria"
+			class="tridentePersistente.tp_persistencia.RentAuto.sistema.Categoria"
+			column="C_ID" unique="false" not-null="false" cascade="all" lazy="false" />
+
+		<bag name="reservas" cascade="all">
+			<key column="A_ID" />
+			<one-to-many
+				class="tridentePersistente.tp_persistencia.RentAuto.sistema.Reserva" />
+		</bag>
+		<many-to-one name="ubicacionInicial"
+			class="tridentePersistente.tp_persistencia.RentAuto.sistema.Ubicacion"
+			lazy="false"
+			column="Ub_ID" unique="false" not-null="false" cascade="all" />			
+	</class>
+</hibernate-mapping>
+

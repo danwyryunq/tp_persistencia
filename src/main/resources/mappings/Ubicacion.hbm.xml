@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="tridentePersistente.tp_persistencia.RentAuto.sistema.Ubicacion" table="ubicaciones" >
+      	
+      	<id column="Ub_ID" name="id" type="integer">
+<!--       		<generator class="increment" /> -->
+      		<generator class="increment" />
+      	</id>
+      	
+        <property name="nombre" type="string">
+        	<column name="U_NOMBRE" length="20" not-null="true" unique="false" />
+        </property>
+        
+        <joined-subclass name="tridentePersistente.tp_persistencia.RentAuto.sistema.UbicacionVirtual" table="UBICACIONES_VIRTUALES" >
+        	<key column="Ub_ID"/>
+       		<bag name="ubicaciones" inverse="true">
+	            <key column="Ub_IDs" not-null="false"/>
+	            <many-to-many class="tridentePersistente.tp_persistencia.RentAuto.sistema.Ubicacion" column="Ub_UBICACIONES"/>
+	        </bag>
+    	</joined-subclass>
+        
+		
+    </class>
+</hibernate-mapping>
+

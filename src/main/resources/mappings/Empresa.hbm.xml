@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping package="net.viralpatel.hibernate">
+ 	
+ 	<class name="tridentePersistente.tp_persistencia.RentAuto.sistema.Empresa" table="empresas">
+        
+        <id column="E_ID" name="id" type="integer">
+      		<generator class="increment" />
+      	</id>
+      	
+		<property name="cuit" type="string">
+            <column name="EMP_CUIT" length="30" not-null="true" unique="true" />
+        </property> 		
+ 		<property name="nombreEmpresa" type="string">
+ 			<column name="EMP_NOMBRE" length="30" not-null="false" unique="true"/>
+ 		</property>
+ 		<property name="cantidadMaximaDeReservasActivas" type="integer">
+ 			<column name="EMP_CantMaxDeReservasActivas" length="30" not-null="false" unique="false"/>
+ 		</property>
+ 		<property name="valorMaximoPorDia" type="double">
+ 			<column name="EMP_ValorMaximoPorDia" length="30" not-null="false" unique="false"/>
+ 		</property>
+       	<bag name="usuarios">
+        	<key column="E_ID" not-null="false"/>
+        	<one-to-many class="tridentePersistente.tp_persistencia.RentAuto.sistema.Usuario"/>
+    	</bag>
+		<bag name="reservas">
+        	<key column="E_ID" not-null="false"/>
+        	<one-to-many class="tridentePersistente.tp_persistencia.RentAuto.sistema.Reserva"/>
+    	</bag>
+    	<bag name="categoriasAdmitidas">
+        <key column="E_ID" not-null="false"/>
+        	<one-to-many class="tridentePersistente.tp_persistencia.RentAuto.sistema.Categoria"/>
+    	</bag>
+	</class>
+</hibernate-mapping>

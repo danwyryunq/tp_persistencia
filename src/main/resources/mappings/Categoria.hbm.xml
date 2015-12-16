@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping package="net.viralpatel.hibernate">
+ 	
+ 	<class name="tridentePersistente.tp_persistencia.RentAuto.sistema.Categoria" table="categorias" discriminator-value="CatTurismo">
+        
+        <id column="C_ID" name="id" type="integer">
+      		<generator class="increment" />
+      	</id>
+      	
+      	<discriminator column="DISCRIMINADOR" type="string"/>
+      	
+		<property name="nombre" type="string">
+            <column name="C_NOMBRE" length="20" not-null="true" unique="true" />
+        </property>
+ 		 
+        <subclass name="tridentePersistente.tp_persistencia.RentAuto.sistema.Turismo" extends="tridentePersistente.tp_persistencia.RentAuto.sistema.Categoria" discriminator-value="CatTurismo"/>
+        <subclass name="tridentePersistente.tp_persistencia.RentAuto.sistema.Familiar" extends="tridentePersistente.tp_persistencia.RentAuto.sistema.Categoria" discriminator-value="CatFamiliar"/>
+        <subclass name="tridentePersistente.tp_persistencia.RentAuto.sistema.Deportivo" extends="tridentePersistente.tp_persistencia.RentAuto.sistema.Categoria" discriminator-value="CatDeportivo"/>
+        <subclass name="tridentePersistente.tp_persistencia.RentAuto.sistema.TodoTerreno" extends="tridentePersistente.tp_persistencia.RentAuto.sistema.Categoria" discriminator-value="CatTodoTerreno"/>
+
+	</class>
+</hibernate-mapping>

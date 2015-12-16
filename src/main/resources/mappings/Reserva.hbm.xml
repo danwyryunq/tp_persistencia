@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="tridentePersistente.tp_persistencia.RentAuto.sistema.Reserva" discriminator-value="Reserva"
+		table="reservas">
+		
+		<id column="R_ID" name="id" type="integer">
+      		<generator class="increment" />
+      	</id>
+      	
+      	<discriminator column="DISCRIMINADOR" type="string"/>
+      	
+		<property name="numeroSolicitud" type="integer">
+			<column name="R_NUMSOLICITUD" length="20" not-null="true" unique="true" />
+		</property>
+
+		<many-to-one name="origen"
+			class="tridentePersistente.tp_persistencia.RentAuto.sistema.Ubicacion"
+			column="Ub_ID_Origen"
+			unique="false"
+			not-null="true" cascade="all" />
+		<many-to-one name="destino"
+			class="tridentePersistente.tp_persistencia.RentAuto.sistema.Ubicacion"
+			column="Ub_ID_Destino"
+			unique="false"
+			not-null="true"
+			cascade="all" />
+		<property name="inicio" type="date">
+			<column name="R_INICIO" length="20" not-null="true" unique="false" />
+		</property>
+		<property name="fin" type="date">
+			<column name="R_FIN" length="20" not-null="true" unique="false" />
+		</property>
+    	<many-to-one name="auto"
+			column="A_ID"
+			not-null="false"
+      		update="false"
+      		lazy="false"
+			cascade="all" />    
+		<many-to-one name="usuario"
+			column="U_ID"
+      		update="false"
+			not-null="true"
+			cascade="all" />
+					
+			<subclass name="tridentePersistente.tp_persistencia.RentAuto.sistema.ReservaEmpresarial" 
+				extends="tridentePersistente.tp_persistencia.RentAuto.sistema.Reserva" 
+				discriminator-value="ResEmpresarial">
+				
+				<many-to-one name="empresa" column="empresaId" not-null="false"/>
+				
+				<property name="nombreContacto" column="nombre_contacto"/>
+				
+				<property name="cargoContacto" column="cargo_contacto"/>
+			</subclass>
+	</class>
+</hibernate-mapping>
+

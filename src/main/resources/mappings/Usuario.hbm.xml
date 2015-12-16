@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="tridentePersistente.tp_persistencia.RentAuto.sistema.Usuario"
+		table="usuarios">
+		
+		<id column="U_ID" name="id" type="integer">
+      		<generator class="increment" />
+      	</id>
+      	
+		<property name="nombreDeUsuario" type="string">
+			<column name="U_NOMBREDEUSUARIO" length="20" not-null="true"
+				unique="true" />
+		</property>
+
+		<property name="nombre" type="string">
+			<column name="U_NOMBRE" length="20" not-null="true" unique="false" />
+		</property>
+		<property name="apellido" type="string">
+			<column name="U_APELLIDO" length="20" not-null="true" unique="false" />
+		</property>
+
+		<property name="contrasenha" type="string">
+			<column name="U_CONTRASENHA" length="20" not-null="true"
+				unique="false" />
+		</property>
+		<property name="email" type="string">
+			<column name="U_EMAIL" length="20" not-null="true" unique="false" />
+		</property>
+		<property name="fechaDeNacimiento" type="date">
+			<column name="U_FNAC" length="20" not-null="true" unique="false" />
+		</property>
+
+		<bag name="reservas" inverse="true">
+			<key column="U_ID" not-null="false" />
+			<one-to-many class="tridentePersistente.tp_persistencia.RentAuto.sistema.Reserva" />
+		</bag>
+	</class>
+</hibernate-mapping>
+
